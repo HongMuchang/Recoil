@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import { useRecoilValue, useRecoilState } from "recoil";
+import { countState , doubleState } from './recoil/atom'
+import Header from './Header';
 
-function App() {
+const App = () => {
+  
+  const [count, setCount] = useRecoilState(countState);
+  const double = useRecoilValue(doubleState);
+
+
+  const increment = () => {
+    setCount(count+1);
+  }
+  const decrement = () => {
+    setCount(count-1);
+  }
+  const start = () => {
+    setCount(0);
+  }
+  
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <p>値1：{count}</p>
+      <p>値2；{double}</p>
+
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+      <button onClick={start}>リセット</button>
+
     </div>
   );
 }
